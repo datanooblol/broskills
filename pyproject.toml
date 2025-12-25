@@ -5,9 +5,11 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "frontmatter>=3.0.8",
     "httpx>=0.28.1",
     "requests>=2.32.5",
+    "pythainlp>=5.1.2",
+    "attacut>=1.0.6",
+    "pyyaml>=5.1.2"
 ]
 
 [dependency-groups]
