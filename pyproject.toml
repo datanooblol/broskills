@@ -9,7 +9,8 @@ dependencies = [
     "requests>=2.32.5",
     "pythainlp>=5.1.2",
     "attacut>=1.0.6",
-    "pyyaml>=5.1.2"
+    "pyyaml>=5.1.2",
+    "rouge-score>=0.1.2",
 ]
 
 [dependency-groups]
