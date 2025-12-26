@@ -10,10 +10,11 @@ dependencies = [
     "pythainlp>=5.1.2",
     "attacut>=1.0.6",
     "pyyaml>=5.1.2",
-    "rouge-score>=0.1.2",
 ]
 
 [dependency-groups]
 dev = [
+    "rouge-score>=0.1.2",
     "ipykernel>=7.1.0",
+    "pytest>=9.0.2",
 ]

@@ -1,3 +1,11 @@
+from dataclasses import dataclass
+
+@dataclass
+class Score:
+    precision: float
+    recall: float
+    fmeasure: float
+
 def exact_match(y_true, y_pred):
     return int((y_true.strip() == y_pred.strip()))
 
@@ -17,7 +25,7 @@ class CustomRouge:
         recall = overlap / len(y_true) if len(y_true) > 0 else 0
         f1 = 2 * precision * recall / (precision + recall) if (precision + recall) > 0 else 0
         
-        return {'precision': precision, 'recall': recall, 'f1': f1}
+        return Score(**{'precision': precision, 'recall': recall, 'fmeasure': f1})
     
     def rouge2(self, y_true, y_pred):
         ref_bigrams = [(y_true[i], y_true[i+1]) for i in range(len(y_true)-1)]
@@ -37,7 +45,7 @@ class CustomRouge:
         recall = overlap / len(ref_bigrams) if len(ref_bigrams) > 0 else 0
         f1 = 2 * precision * recall / (precision + recall) if (precision + recall) > 0 else 0
         
-        return {'precision': precision, 'recall': recall, 'f1': f1}
+        return Score(**{'precision': precision, 'recall': recall, 'fmeasure': f1})
     
     def rougeL(self, y_true, y_pred):
         m, n = len(y_true), len(y_pred)
@@ -54,5 +62,29 @@ class CustomRouge:
         precision = lcs_length / n if n > 0 else 0
         recall = lcs_length / m if m > 0 else 0
         f1 = 2 * precision * recall / (precision + recall) if (precision + recall) > 0 else 0
+
+        return Score(**{'precision': precision, 'recall': recall, 'fmeasure': f1})
+
+    def score(self, y_true, y_pred):
+        return {
+            'rouge1': self.rouge1(y_true, y_pred),
+            'rouge2': self.rouge2(y_true, y_pred),
+            'rougeL': self.rougeL(y_true, y_pred)
+        }
+
+# class Evaluator:
+#     def __init__(self):
+#         self.rouge = CustomRouge()
+    
+#     def evaluate(self, y_true:list[str], y_pred:list[str]):
+#         em = exact_match(y_true, y_pred)
+#         rouge1_scores = self.rouge.rouge1(y_true, y_pred)
+#         rouge2_scores = self.rouge.rouge2(y_true, y_pred)
+#         rougeL_scores = self.rouge.rougeL(y_true, y_pred)
         
-        return {'precision': precision, 'recall': recall, 'f1': f1}
+#         return {
+#             'exact_match': em,
+#             'rouge1': rouge1_scores,
+#             'rouge2': rouge2_scores,
+#             'rougeL': rougeL_scores
+#         }
